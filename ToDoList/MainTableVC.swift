@@ -71,8 +71,56 @@ class MainTableVC: UITableViewController , NSFetchedResultsControllerDelegate{
         
         cell.itemTitle.text = item.title
         
+        cell.completedState = item.completed
+        
+        if cell.completedState{
+            cell.backgroundColor = UIColor(red: CGFloat(0.17), green: CGFloat(0.73), blue: CGFloat(0.144), alpha: CGFloat(0.75))
+        }
+        else{
+            cell.backgroundColor = UIColor.white
+        }
+        print(item.completed)
+        
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let item = self.controller.object(at: indexPath)
+        let cell = myTableView.cellForRow(at: indexPath) as! Cell
+
+        if item.completed{
+            let notDone = UITableViewRowAction(style: .normal, title: "Not Done"){ action, index in
+                item.completed = !item.completed
+                ad.saveContext()
+                cell.backgroundColor = UIColor.white
+
+            }
+            notDone.backgroundColor = UIColor(red: CGFloat(0.9979), green: CGFloat(0.0742), blue: CGFloat(0.148), alpha: CGFloat(1.0))
+            //self.tableView.setEditing(false, animated: true)
+            return [notDone]
+        }
+        else{
+            let done = UITableViewRowAction(style: .normal, title: "Done") { action, index in
+                print("Done button tapped")
+                item.completed = !item.completed
+                ad.saveContext()
+                cell.backgroundColor = UIColor(red: CGFloat(0.17), green: CGFloat(0.73), blue: CGFloat(0.144), alpha: CGFloat(0.75))
+
+            }
+            done.backgroundColor = UIColor(red: CGFloat(0.17), green: CGFloat(0.73), blue: CGFloat(0.144), alpha: CGFloat(0.75))
+            //self.tableView.setEditing(false, animated: true)
+
+            return [done]
+        }
+
+    }
+    
+//    override func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+//      
+//
+//    }
+    
     
     //selecting a particular row..
     
@@ -219,6 +267,7 @@ class MainTableVC: UITableViewController , NSFetchedResultsControllerDelegate{
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("before end updates")
+        self.tableView.setEditing(false, animated: true)
         myTableView.endUpdates()
         print("end updates")
     }
@@ -278,13 +327,13 @@ class MainTableVC: UITableViewController , NSFetchedResultsControllerDelegate{
         ad.saveContext()
         
     }
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+    
     /*
     
     // Override to support editing the table view.

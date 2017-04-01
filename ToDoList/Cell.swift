@@ -11,6 +11,8 @@ import UIKit
 class Cell: UITableViewCell {
 
     @IBOutlet weak var itemTitle: UILabel!
+    var completedState = false
+    
         override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

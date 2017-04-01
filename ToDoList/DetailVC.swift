@@ -26,15 +26,16 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         //print("asmcnbasmxbsamncx")
         titleField.delegate = self
         saveButtonTitle.isEnabled = false
-
+        
         if itemToEdit != nil {
-            loadItemData()
+            saveButtonTitle.isEnabled = false
             saveButtonTitle.title = "Update"
+            loadItemData()
         }
         
         // Do any additional setup after loading the view, typically from a nib.
-        updateSaveButtonState()
-
+        //updateSaveButtonState()
+        
         
     }
     
@@ -85,51 +86,71 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         else {
             fatalError("The MealViewController is not inside a navigation controller.")
         }
-       // dismiss(animated: true, completion: nil)
+        // dismiss(animated: true, completion: nil)
         
     }
     @IBAction func DeleteBtnPressed(_ sender: UIBarButtonItem) {
         
         print("delete button pressed")
-        if itemToEdit != nil {
-            context.delete(itemToEdit!)
-            ad.saveContext()
-            
-            print("deleting from DB")
-            
-        }
         
-        _ = navigationController?.popViewController(animated: true)
-//
-//        let isPresentingInAddMealMode = presentingViewController is UINavigationController
-//        
-//        if isPresentingInAddMealMode {
-//            dismiss(animated: true, completion: nil)
-//        }
-//        else if let owningNavigationController = navigationController{
-//            owningNavigationController.popViewController(animated: true)
-//        }
-//        else {
-//            fatalError("The MealViewController is not inside a navigation controller.")
-//        }
+        let deleteButton = UIAlertAction(title: "Delete", style: .default, handler: { (action) -> Void in
+            //print("Send now button tapped for value")
+            if self.itemToEdit != nil {
+                context.delete(self.itemToEdit!)
+                ad.saveContext()
+
+                print("deleting from DB")
+                
+            }
+            _ = self.navigationController?.popViewController(animated: true)
+        })
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            print("Cancel button tapped")
+            //self.myTableView.setEditing(false, animated: true)
+        })
+        //
+        //        let isPresentingInAddMealMode = presentingViewController is UINavigationController
+        //
+        //        if isPresentingInAddMealMode {
+        //            dismiss(animated: true, completion: nil)
+        //        }
+        //        else if let owningNavigationController = navigationController{
+        //            owningNavigationController.popViewController(animated: true)
+        //        }
+        //        else {
+        //            fatalError("The MealViewController is not inside a navigation controller.")
+        //        }
         print("dismissing DetailVC")
         
+        
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alertController.addAction(deleteButton)
+        
+        alertController.addAction(cancelButton)
+        
+        //self.navigationController?.presentingViewController(alertController, animated: true)
+        self.navigationController!.present(alertController, animated: true, completion: nil)
+        //self.presentingViewController(alertController)
     }
+    
     @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
         // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
         _ = navigationController?.popViewController(animated: true)
         
-//        let isPresentingInAddMealMode = presentingViewController is UINavigationController
-//        
-//        if isPresentingInAddMealMode {
-//            dismiss(animated: true, completion: nil)
-//        }
-//        else if let owningNavigationController = navigationController{
-//            owningNavigationController.popViewController(animated: true)
-//        }
-//        else {
-//            fatalError("The MealViewController is not inside a navigation controller.")
-//        }
+        //        let isPresentingInAddMealMode = presentingViewController is UINavigationController
+        //
+        //        if isPresentingInAddMealMode {
+        //            dismiss(animated: true, completion: nil)
+        //        }
+        //        else if let owningNavigationController = navigationController{
+        //            owningNavigationController.popViewController(animated: true)
+        //        }
+        //        else {
+        //            fatalError("The MealViewController is not inside a navigation controller.")
+        //        }
     }
     
     func loadItemData(){
@@ -151,19 +172,38 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        updateSaveButtonState()
         navigationItem.title = titleField.text
-        
-    }
-    
-    //MARK: Private Methods
-    private func updateSaveButtonState() {
-        // Disable the Save button if the text field is empty.
         let text = titleField.text ?? ""
         print("\(text)")
         saveButtonTitle.isEnabled = !text.isEmpty
+        
     }
-    
-    
+//    
+//    func displayShareSheet()
+//    {
+//        
+//        //let alertController = UIAlertController(title: "Action Sheet", message: "What would you like to do?", preferredStyle: .ActionSheet)
+//        
+//        let shareViaFacebook = UIAlertAction(title: "Share via Facebook", style: .Default, handler: { (action) -> Void in
+//            print("Send now button tapped for value")
+//        })
+//        
+//        let shareViaEmail = UIAlertAction(title: "Share via Email", style: .Default, handler: { (action) -> Void in
+//            print("Delete button tapped for value")
+//        })
+//        
+//        let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+//            print("Cancel button tapped")
+//            self.myTableView.setEditing(false, animated: true)
+//        })
+//        
+//        alertController.addAction(shareViaFacebook)
+//        alertController.addAction(shareViaEmail)
+//        alertController.addAction(cancelButton)
+//        
+//        self.navigationController!.presentViewController(alertController, animated: true, completion: nil)
+//    }
+//    
+//    
 }
 
