@@ -17,8 +17,10 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var saveButtonTitle: UIBarButtonItem!
     
-    var itemToEdit: Item?
+    @IBOutlet weak var innerView: UIView!
+    @IBOutlet weak var addNotes: UIButton!
     
+    var itemToEdit: Item?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,9 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         //print("asmcnbasmxbsamncx")
         titleField.delegate = self
         saveButtonTitle.isEnabled = false
+
+        
+
         
         if itemToEdit != nil {
             saveButtonTitle.isEnabled = false
@@ -36,10 +41,18 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         //updateSaveButtonState()
         
-        
+
+        self.titleField.becomeFirstResponder()
     }
     
-    
+    @IBAction func addNotes(_ sender: UIButton) {
+        
+        innerView.isHidden = true
+        addNotes.isHidden = true
+        
+        self.descriptionField.becomeFirstResponder()
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -50,6 +63,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing.
         saveButtonTitle.isEnabled = false
+        
     }
     
     
@@ -93,7 +107,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         
         print("delete button pressed")
         
-        let deleteButton = UIAlertAction(title: "Delete", style: .default, handler: { (action) -> Void in
+        let deleteButton = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) -> Void in
             //print("Send now button tapped for value")
             if self.itemToEdit != nil {
                 context.delete(self.itemToEdit!)
@@ -122,7 +136,6 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         //            fatalError("The MealViewController is not inside a navigation controller.")
         //        }
         print("dismissing DetailVC")
-        
         
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -161,6 +174,13 @@ class DetailVC: UIViewController, UITextFieldDelegate {
             
             titleField.text = item.title
             descriptionField.text = item.descrip
+            
+            if descriptionField.text != ""{
+                innerView.isHidden = true
+                addNotes.isHidden = true
+               // descriptionField.becomeFirstResponder()
+            }
+            
             //print("asmcnbasmxbsamncx")
             
             
@@ -204,6 +224,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
 //        self.navigationController!.presentViewController(alertController, animated: true, completion: nil)
 //    }
 //    
-//    
+//
+
 }
 
