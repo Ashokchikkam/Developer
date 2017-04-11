@@ -1,14 +1,18 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4CD5CC53C172D40C00E586329357FE55CD7AEFC3",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++C1B9972",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "4CD5CC53C172D40C00E586329357FE55CD7AEFC3" : 9223372036854775807
+    "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++C1B9972" : 9223372036854775807,
+    "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++C964F5F" : 9223372036854775807,
+    "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++6DA7693" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1996D387-EA2E-4D9A-8772-AA0938F2BD79",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "4CD5CC53C172D40C00E586329357FE55CD7AEFC3" : ""
+    "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++C1B9972" : "Curiosity\/",
+    "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++C964F5F" : "",
+    "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++6DA7693" : ""
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Curiosity",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -17,12 +21,17 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Ashokchikkam\/Developer.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4CD5CC53C172D40C00E586329357FE55CD7AEFC3"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++6DA7693"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Ashokchikkam\/Developer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++C1B9972"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Ashokchikkam\/ios_learning.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4CD5CC53C172D40C00E586329357FE55CD7AEFC3"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4CD5CC53C172D40C00E586329357FE55CD7AEFC3+++C964F5F"
     }
   ]
 }
