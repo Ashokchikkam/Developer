@@ -15,56 +15,59 @@ class CuriosityCell: UICollectionViewCell {
     
     @IBOutlet weak var imageOutlet: UIImageView!
     
-    @IBOutlet weak var loading: UIActivityIndicatorView!
-    
     var curiosity: Curiosity!
     
-    
     func configureCell(curiosity: Curiosity) {
-        loading.isHidden = false
-        imageOutlet.isHidden = true
-        self.curiosity = curiosity
-        
-        if let img_url = curiosity.imageURL{
-            //            var temp = String(describing: img_url)
-            //            temp = temp.replacingOccurrences(of: ".JPG", with: "s.JPG")
-            DispatchQueue.global().async {
-                
-                let img_src = CGImageSourceCreateWithURL((img_url as? CFURL)!, nil)
-                let scale = UIScreen.main.scale
-                print("scale value: \(scale)")
-                
-                
-                let w = self.imageOutlet.bounds.size.width * CGFloat(scale)
-                print("image outlet width: \(self.imageOutlet.bounds.size.width)")
-                print("width: \(w)")
-                
-                // Create thumbnail options
-                let options: [NSObject: AnyObject] = [
-                    kCGImageSourceShouldAllowFloat : true as AnyObject,
-                    kCGImageSourceCreateThumbnailWithTransform : true as AnyObject,
-                    kCGImageSourceCreateThumbnailFromImageAlways : true as AnyObject,
-                    kCGImageSourceThumbnailMaxPixelSize: w as AnyObject
-                ]
-                let imref = CGImageSourceCreateThumbnailAtIndex(img_src!, 0, options as CFDictionary?)
-                let im = UIImage(cgImage: imref!)
-                DispatchQueue.global().sync {
-                    self.loading.isHidden = true
-                    self.imageOutlet.isHidden = false
-                    self.imageOutlet.image = im
-                }
-                
-                
-                var img_size: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
-                
-                print("size of the loaded image: \(Double(img_size.length))")
-                
-                print("inside configuring cell")
-            }
-            
-            print("inside configuring cell")
-        }
+        imageOutlet.image = curiosity.image
+        imageOutlet.isHidden = false
+        print("inside curiosity cell configuring cell")
     }
+    //
+    //
+//    func configureCell(curiosity: Curiosity) {
+//        loading.isHidden = false
+//        imageOutlet.isHidden = true
+//        self.curiosity = curiosity
+//        
+//        if let img_url = curiosity.imageURL{
+//            //            var temp = String(describing: img_url)
+//            //            temp = temp.replacingOccurrences(of: ".JPG", with: "s.JPG")
+//            DispatchQueue.global().async {
+//                
+//                let img_src = CGImageSourceCreateWithURL((img_url as? CFURL)!, nil)
+//                let scale = UIScreen.main.scale
+//                print("scale value: \(scale)")
+//                
+//                let w = self.imageOutlet.bounds.size.width * CGFloat(scale)
+//                print("image outlet width: \(self.imageOutlet.bounds.size.width)")
+//                print("width: \(w)")
+//                
+//                // Create thumbnail options
+//                let options: [NSObject: AnyObject] = [
+//                    kCGImageSourceShouldAllowFloat : true as AnyObject,
+//                    kCGImageSourceCreateThumbnailWithTransform : true as AnyObject,
+//                    kCGImageSourceCreateThumbnailFromImageAlways : true as AnyObject,
+//                    kCGImageSourceThumbnailMaxPixelSize: w as AnyObject
+//                ]
+//                let imref = CGImageSourceCreateThumbnailAtIndex(img_src!, 0, options as CFDictionary?)
+//                let im = UIImage(cgImage: imref!)
+//                DispatchQueue.global().sync {
+//                    self.loading.isHidden = true
+//                    self.imageOutlet.isHidden = false
+//                    self.imageOutlet.image = im
+//                }
+//                
+//                
+//                let img_size: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
+//                
+//                print("size of the loaded image: \(Double(img_size.length))")
+//                
+//                print("inside configuring cell")
+//            }
+//            
+//            print("inside configuring cell")
+//        }
+//    }
     //BELOW CODE WORKS FINE...
     /*
      func configureCell(curiosity: Curiosity) {

@@ -8,4 +8,4 @@
 
 import Foundation
 
-let BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY"
+let BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=7OlrQ9KiYMI9MSqGRb6io8JRunB2zIZASp949x13"

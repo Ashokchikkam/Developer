@@ -13,29 +13,29 @@ import Alamofire
 class Curiosity {
     
     
-//    private var _indexValue: Int?
-//    private var _image: UIImage?
-//    
-//    var image: UIImage?{
-//        set{
-//            _image = image
-//        }
-//        get{
-//            return _image
-//        }
-//    }
-//    
-//    
-//    var indexValue: Int?{
-//        
-//        return _indexValue
-//    }
-//    
-//    init(indexValue: Int?, image: UIImage?) {
-//        _indexValue = indexValue
-//        _image = image
-//    }
-//    
+    private var _indexValue: Int?
+    private var _image: UIImage?
+    
+    var image: UIImage?{
+        set{
+            _image = image
+        }
+        get{
+            return _image
+        }
+    }
+
+    
+    var indexValue: Int?{
+        
+        return _indexValue
+    }
+    
+    init(indexValue: Int?) {
+        _indexValue = indexValue
+        print("initializing indexValue")
+    }
+    
     
     
     private var _imageURL: URL?
@@ -47,6 +47,9 @@ class Curiosity {
         _imageURL = imageURL
     }
 //
+    init(image: UIImage) {
+        _image = image
+    }
 //    func loadData(indexValue: Int) -> UIImage? {
 //        
 //        Alamofire.request(BASE_URL).responseJSON{ response in

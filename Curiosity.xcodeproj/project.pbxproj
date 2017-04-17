@@ -16,6 +16,7 @@
 		F94803871E983DD5001B6A60 /* CuriosityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94803861E983DD5001B6A60 /* CuriosityCell.swift */; };
 		F94803891E984F3E001B6A60 /* Curiosity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94803881E984F3E001B6A60 /* Curiosity.swift */; };
 		F948038B1E985162001B6A60 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F948038A1E985162001B6A60 /* Constants.swift */; };
+		F957BFC81E9FE4F700C186E0 /* CuriosityDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F957BFC61E9FE4F700C186E0 /* CuriosityDataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		F94803861E983DD5001B6A60 /* CuriosityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuriosityCell.swift; sourceTree = "<group>"; };
 		F94803881E984F3E001B6A60 /* Curiosity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Curiosity.swift; sourceTree = "<group>"; };
 		F948038A1E985162001B6A60 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F957BFC71E9FE4F700C186E0 /* CuriosityDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CuriosityDataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				F91B7B0C1E96EE7C00EB37DD /* AppDelegate.swift */,
 				F91B7B131E96EE7C00EB37DD /* Assets.xcassets */,
 				F91B7B151E96EE7C00EB37DD /* LaunchScreen.storyboard */,
+				F957BFC61E9FE4F700C186E0 /* CuriosityDataModel.xcdatamodeld */,
 				F91B7B181E96EE7C00EB37DD /* Info.plist */,
 			);
 			path = Curiosity;
@@ -246,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F948038B1E985162001B6A60 /* Constants.swift in Sources */,
+				F957BFC81E9FE4F700C186E0 /* CuriosityDataModel.xcdatamodeld in Sources */,
 				F91B7B0F1E96EE7C00EB37DD /* ViewController.swift in Sources */,
 				F94803891E984F3E001B6A60 /* Curiosity.swift in Sources */,
 				F91B7B0D1E96EE7C00EB37DD /* AppDelegate.swift in Sources */,
@@ -420,6 +424,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F957BFC61E9FE4F700C186E0 /* CuriosityDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F957BFC71E9FE4F700C186E0 /* CuriosityDataModel.xcdatamodel */,
+			);
+			currentVersion = F957BFC71E9FE4F700C186E0 /* CuriosityDataModel.xcdatamodel */;
+			path = CuriosityDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F91B7B011E96EE7C00EB37DD /* Project object */;
 }
