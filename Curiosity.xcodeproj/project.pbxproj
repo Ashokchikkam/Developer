@@ -13,6 +13,7 @@
 		F91B7B121E96EE7C00EB37DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F91B7B101E96EE7C00EB37DD /* Main.storyboard */; };
 		F91B7B141E96EE7C00EB37DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F91B7B131E96EE7C00EB37DD /* Assets.xcassets */; };
 		F91B7B171E96EE7C00EB37DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F91B7B151E96EE7C00EB37DD /* LaunchScreen.storyboard */; };
+		F92D7FFA1EA6AB8300179DCE /* DetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D7FF91EA6AB8300179DCE /* DetailsVC.swift */; };
 		F94803871E983DD5001B6A60 /* CuriosityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94803861E983DD5001B6A60 /* CuriosityCell.swift */; };
 		F94803891E984F3E001B6A60 /* Curiosity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94803881E984F3E001B6A60 /* Curiosity.swift */; };
 		F948038B1E985162001B6A60 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F948038A1E985162001B6A60 /* Constants.swift */; };
@@ -30,6 +31,7 @@
 		F91B7B131E96EE7C00EB37DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F91B7B161E96EE7C00EB37DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F91B7B181E96EE7C00EB37DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F92D7FF91EA6AB8300179DCE /* DetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsVC.swift; sourceTree = "<group>"; };
 		F94803861E983DD5001B6A60 /* CuriosityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CuriosityCell.swift; sourceTree = "<group>"; };
 		F94803881E984F3E001B6A60 /* Curiosity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Curiosity.swift; sourceTree = "<group>"; };
 		F948038A1E985162001B6A60 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				F91B7B0E1E96EE7C00EB37DD /* ViewController.swift */,
+				F92D7FF91EA6AB8300179DCE /* DetailsVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				F957BFC81E9FE4F700C186E0 /* CuriosityDataModel.xcdatamodeld in Sources */,
 				F91B7B0F1E96EE7C00EB37DD /* ViewController.swift in Sources */,
 				F94803891E984F3E001B6A60 /* Curiosity.swift in Sources */,
+				F92D7FFA1EA6AB8300179DCE /* DetailsVC.swift in Sources */,
 				F91B7B0D1E96EE7C00EB37DD /* AppDelegate.swift in Sources */,
 				F94803871E983DD5001B6A60 /* CuriosityCell.swift in Sources */,
 			);
@@ -379,7 +383,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VLW59PB552;
 				INFOPLIST_FILE = Curiosity/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AshokChikkam.Curiosity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -394,7 +398,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VLW59PB552;
 				INFOPLIST_FILE = Curiosity/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AshokChikkam.Curiosity;
 				PRODUCT_NAME = "$(TARGET_NAME)";

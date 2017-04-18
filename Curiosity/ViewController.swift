@@ -83,56 +83,99 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell!
     }
     
+    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    //        if let objs = controller.fetchedObjects , objs.count > 0 {
+    //            let item = objs[indexPath.row]
+    //            print("inside did select item")
+    //            performSegue(withIdentifier: "ItemDetailsVC", sender: item)
+    //        }
+    //    }
+    //
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "ItemDetailsVC" {
+            
+            guard let destination = segue.destination as? DetailsVC else {
+                fatalError("Unexpected Destination")
+            }
+            guard let itemCell = sender as? CuriosityCell else {
+                fatalError("Unexpected cell")
+            }
+            guard let indexPath = collection.indexPath(for: itemCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let detailItem = controller.object(at: indexPath)
+            
+            destination.detailItem = detailItem
+            print("inside prepare for segue")
+            
+        }
+        
+    }
+    
+    
     func configureCell(cell: CuriosityCell, indexPath: NSIndexPath) {
         
         print("cell number:\(indexPath.row) loaded")
         
         let obj = controller.object(at: indexPath as IndexPath)
+        print(" camera value: \(obj.camera!)")
         
         if !obj.thumbnailisLoaded{
-            
+            obj.thumbnailisLoaded = true
             DispatchQueue.global().async {
                 
-                
-                let img_src = CGImageSourceCreateWithURL(URL(string: obj.imageURL!) as! CFURL, nil)
-                let scale = UIScreen.main.scale
-                print("scale value: \(scale)")
-                
-                let w = cell.imageOutlet.bounds.size.width * CGFloat(scale)
-                print("image outlet width: \(cell.imageOutlet.bounds.size.width)")
-                print("width: \(w)")
-                
-                // Create thumbnail options
-                let options: [NSObject: AnyObject] = [
-                    kCGImageSourceShouldAllowFloat : true as AnyObject,
-                    kCGImageSourceCreateThumbnailWithTransform : true as AnyObject,
-                    kCGImageSourceCreateThumbnailFromImageAlways : true as AnyObject,
-                    kCGImageSourceThumbnailMaxPixelSize: w as AnyObject
-                ]
-                if let imref = CGImageSourceCreateThumbnailAtIndex(img_src!, 0, options as CFDictionary?){
-                    let im = UIImage(cgImage: imref)
-                    
-                    let x: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
-                    obj.thumbnail = x
-                    obj.thumbnailisLoaded = true
-                    
-                    DispatchQueue.main.async {
+                if let tempImageUrl = obj.imageURL{
+                    if let img_src = CGImageSourceCreateWithURL(URL(string: tempImageUrl) as! CFURL, nil){
+                        let scale = UIScreen.main.scale
+                        print("scale value: \(scale)")
                         
-                        self.curiosity = Curiosity(image: im)
-                        print("inside main .async ")
-                        //cell.imageOutlet.image = UIImage(data: obj.thumbnail as! Data)
+                        let w = cell.imageOutlet.bounds.size.width * CGFloat(scale)
+                        print("image outlet width: \(cell.imageOutlet.bounds.size.width)")
+                        print("width: \(w)")
                         
+                        // Create thumbnail options
+                        let options: [NSObject: AnyObject] = [
+                            kCGImageSourceShouldAllowFloat : true as AnyObject,
+                            kCGImageSourceCreateThumbnailWithTransform : true as AnyObject,
+                            kCGImageSourceCreateThumbnailFromImageAlways : true as AnyObject,
+                            kCGImageSourceThumbnailMaxPixelSize: w as AnyObject
+                        ]
+                        if let imref = CGImageSourceCreateThumbnailAtIndex(img_src, 0, options as CFDictionary?){
+                            let im = UIImage(cgImage: imref)
+                            
+                            let x: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
+                            obj.thumbnail = x
+                            
+                            DispatchQueue.main.async {
+                                
+                                self.curiosity = Curiosity(image: im)
+                                print("inside main .async ")
+                                //cell.imageOutlet.image = UIImage(data: obj.thumbnail as! Data)
+                            }
+                            //ad.saveContext()
+                            
+                            let img_size: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
+                            
+                            print("size of the loaded image: \(Double(img_size.length))")
+                        }
+                        else{
+                            print("unable to load thumbnail image")
+                        }
                         
                     }
-                    //ad.saveContext()
-                    
-                    let img_size: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
-                    
-                    print("size of the loaded image: \(Double(img_size.length))")
+                    else{
+                        print("image source not found at the given image url at index value: \(indexPath.row)")
+                    }
                 }
                 else{
-                    print("unable to load thumbnail image")
+                    print("imageUrl not found at the index value: \(indexPath.row)")
                 }
+                
+                
                 //let im = UIImage(cgImage: imref!)
                 
             }
@@ -140,7 +183,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("inside configuring cell")
         }
         else if obj.thumbnail != nil{
-            
             let tempImage = UIImage(data: obj.thumbnail as! Data)
             
             self.curiosity = Curiosity(image: tempImage!)
@@ -148,71 +190,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    //
-    //    func configureCell(cell: CuriosityCell, indexPath: NSIndexPath) {
-    //
-    //        cell.loadingIndicator.isHidden = false
-    //        cell.imageOutlet.isHidden = true
-    //
-    //
-    //         let imageURL = getImgUrlAtIndexPath(indexValue: indexPath.row)
-    ////        if let objs = controller.fetchedObjects , objs.count > 0 {
-    ////
-    ////            let obj = controller.object(at: indexPath as IndexPath)
-    //            //print("inside cell for row at imageURL:\(curiosity?.imageURL)")
-    //
-    //            //cell.configureCell(curiosity: curiosity!)
-    //
-    //            DispatchQueue.global().async {
-    //
-    //
-    //                    let img_src = CGImageSourceCreateWithURL(imageURL as! CFURL, nil)
-    //                    let scale = UIScreen.main.scale
-    //                    print("scale value: \(scale)")
-    //
-    //                    let w = cell.imageOutlet.bounds.size.width * CGFloat(scale)
-    //                    print("image outlet width: \(cell.imageOutlet.bounds.size.width)")
-    //                    print("width: \(w)")
-    //
-    //                    // Create thumbnail options
-    //                    let options: [NSObject: AnyObject] = [
-    //                        kCGImageSourceShouldAllowFloat : true as AnyObject,
-    //                        kCGImageSourceCreateThumbnailWithTransform : true as AnyObject,
-    //                        kCGImageSourceCreateThumbnailFromImageAlways : true as AnyObject,
-    //                        kCGImageSourceThumbnailMaxPixelSize: w as AnyObject
-    //                    ]
-    //                    if let imref = CGImageSourceCreateThumbnailAtIndex(img_src!, 0, options as CFDictionary?){
-    //                        let im = UIImage(cgImage: imref)
-    //
-    //                        DispatchQueue.global().sync {
-    //                            // self.curiosity?.image = im
-    //                            self.curiosity = Curiosity(image: im)
-    //                            cell.configureCell(curiosity: self.curiosity!)
-    //                        }
-    //
-    //
-    //                        let img_size: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
-    //
-    //                        print("size of the loaded image: \(Double(img_size.length))")
-    //                    }
-    //                    else{
-    //                        print("unable to load thumbnail image")
-    //                    }
-    //                    //let im = UIImage(cgImage: imref!)
-    //
-    //
-    //            }
-    //
-    //            print("inside configuring cell")
-    //
-    //
-    //            //        //testing the default values of the obect in core data.
-    //            //        let x = controller.object(at: indexPath as IndexPath)
-    //            //        print("default camera value of the obect: \(x.camera), image data: \(x.thumbnail)")
-    //        //}
-    //
-    //
-    //    }
+    
     
     func attemptFetch() {
         
@@ -241,52 +219,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
-    //    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    //        collection.performBatchUpdates(nil, completion: nil)
-    //    }
-    //
-    //    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    //        //tableView.endUpdates()
-    //    }
     
-    //    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    //
-    //        switch(type) {
-    //
-    //        case.insert:
-    //            if let indexPath = newIndexPath {
-    //                collection.insertItems(at: [indexPath])
-    //                //tableView.insertRows(at: [indexPath], with: .fade)
-    //            }
-    //            break
-    //        case.delete:
-    //            if let indexPath = indexPath {
-    //                print("inside switch case's delete")
-    //                collection.deleteItems(at: [indexPath])
-    //                //tableView.deleteRows(at: [indexPath], with: .fade)
-    //            }
-    //            break
-    //        case.update:
-    //            if let indexPath = indexPath {
-    //                let itemCell = collection.cellForItem(at: indexPath) as! CuriosityCell
-    //                configureCell(cell: itemCell, indexPath: indexPath as NSIndexPath)
-    //                //                let cell = tableView.cellForRow(at: indexPath) as! ItemCell
-    //                //                configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
-    //            }
-    //            break
-    //        case.move:
-    //            if let indexPath = indexPath {
-    //                collection.deleteItems(at: [indexPath])
-    //                //tableView.deleteRows(at: [indexPath], with: .fade)
-    //            }
-    //            if let indexPath = newIndexPath {
-    //                collection.insertItems(at: [indexPath])
-    //                //tableView.insertRows(at: [indexPath], with: .fade)
-    //            }
-    //            break
-    //        }
-    //    }
-    //
     //Loading initial Data, Loading image_URL's into CoreData.
     func loadInitialData() {
         if(!UserDefaults.standard.bool(forKey: "firstlaunch1.0")){
@@ -306,6 +239,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                 newItem.thumbnailisLoaded = false
                                 newItem.imageURL = img_src
                                 print("Adding a new item.")
+                            }
+                            if let camera = row["camera"] as? Dictionary<String, AnyObject>{
+                                if let cameraName = camera["name"] as? String{
+                                    newItem.camera = cameraName
+                                }
                             }
                             if let id = row["id"] as? NSInteger{
                                 newItem.imageId = Int32(id)
@@ -403,18 +341,88 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     //To change BackGround Images continously.
     func changeBGImage(){
-        let crossFading: CABasicAnimation = CABasicAnimation(keyPath: "contents")
-        
-        if(bgImageCount == imageSet.count-1){
-            bgImageCount = 0
+        if imageSet.count > 1{
+            let crossFading: CABasicAnimation = CABasicAnimation(keyPath: "contents")
+            
+            if(bgImageCount == imageSet.count-1){
+                bgImageCount = 0
+            }
+            crossFading.duration = 2
+            crossFading.fromValue = imageSet[bgImageCount].cgImage
+            crossFading.toValue = imageSet[bgImageCount + 1].cgImage
+            bgImageView.image = imageSet[bgImageCount+1]
+            bgImageView.layer.add(crossFading, forKey: "animateContents")
+            
+            bgImageCount += 1
         }
-        crossFading.duration = 2
-        crossFading.fromValue = imageSet[bgImageCount].cgImage
-        crossFading.toValue = imageSet[bgImageCount + 1].cgImage
-        bgImageView.image = imageSet[bgImageCount+1]
-        bgImageView.layer.add(crossFading, forKey: "animateContents")
-        
-        bgImageCount += 1
     }
     
+    
 }
+
+//
+//
+//func configureCell(cell: CuriosityCell, indexPath: NSIndexPath) {
+//
+//    print("cell number:\(indexPath.row) loaded")
+//
+//    let obj = controller.object(at: indexPath as IndexPath)
+//    print(" camera value: \(obj.camera!)")
+//
+//    if !obj.thumbnailisLoaded{
+//        obj.thumbnailisLoaded = true
+//        DispatchQueue.global().async {
+//
+//
+//            let img_src = CGImageSourceCreateWithURL(URL(string: obj.imageURL!) as! CFURL, nil)
+//            let scale = UIScreen.main.scale
+//            print("scale value: \(scale)")
+//
+//            let w = cell.imageOutlet.bounds.size.width * CGFloat(scale)
+//            print("image outlet width: \(cell.imageOutlet.bounds.size.width)")
+//            print("width: \(w)")
+//
+//            // Create thumbnail options
+//            let options: [NSObject: AnyObject] = [
+//                kCGImageSourceShouldAllowFloat : true as AnyObject,
+//                kCGImageSourceCreateThumbnailWithTransform : true as AnyObject,
+//                kCGImageSourceCreateThumbnailFromImageAlways : true as AnyObject,
+//                kCGImageSourceThumbnailMaxPixelSize: w as AnyObject
+//            ]
+//            if let imref = CGImageSourceCreateThumbnailAtIndex(img_src!, 0, options as CFDictionary?){
+//                let im = UIImage(cgImage: imref)
+//
+//                let x: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
+//                obj.thumbnail = x
+//
+//                DispatchQueue.main.async {
+//
+//                    self.curiosity = Curiosity(image: im)
+//                    print("inside main .async ")
+//                    //cell.imageOutlet.image = UIImage(data: obj.thumbnail as! Data)
+//
+//
+//                }
+//                //ad.saveContext()
+//
+//                let img_size: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
+//
+//                print("size of the loaded image: \(Double(img_size.length))")
+//            }
+//            else{
+//                print("unable to load thumbnail image")
+//            }
+//            //let im = UIImage(cgImage: imref!)
+//
+//        }
+//
+//        print("inside configuring cell")
+//    }
+//    else if obj.thumbnail != nil{
+//        let tempImage = UIImage(data: obj.thumbnail as! Data)
+//
+//        self.curiosity = Curiosity(image: tempImage!)
+//        cell.imageOutlet.image = UIImage(data: obj.thumbnail as! Data)
+//    }
+//}
+//    
