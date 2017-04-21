@@ -129,7 +129,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             DispatchQueue.global().async {
                 
                 if let tempImageUrl = obj.imageURL{
-                    if let img_src = CGImageSourceCreateWithURL(URL(string: tempImageUrl) as! CFURL, nil){
+                    if let img_src = CGImageSourceCreateWithURL((URL(string: tempImageUrl)! as CFURL), nil){
                         let scale = UIScreen.main.scale
                         print("scale value: \(scale)")
                         
@@ -158,9 +158,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                             }
                             //ad.saveContext()
                             
-                            let img_size: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
+                            //let img_size: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
                             
-                            print("size of the loaded image: \(Double(img_size.length))")
+                           // print("size of the loaded image: \(Double(img_size.length))")
                         }
                         else{
                             print("unable to load thumbnail image")
@@ -183,10 +183,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("inside configuring cell")
         }
         else if obj.thumbnail != nil{
-            let tempImage = UIImage(data: obj.thumbnail as! Data)
+            let tempImage = UIImage(data: obj.thumbnail! as Data)
             
             self.curiosity = Curiosity(image: tempImage!)
-            cell.imageOutlet.image = UIImage(data: obj.thumbnail as! Data)
+            cell.imageOutlet.image = UIImage(data: obj.thumbnail! as Data)
         }
     }
     
@@ -241,7 +241,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                 print("Adding a new item.")
                             }
                             if let camera = row["camera"] as? Dictionary<String, AnyObject>{
-                                if let cameraName = camera["name"] as? String{
+                                if let cameraName = camera["full_name"] as? String{
                                     newItem.camera = cameraName
                                 }
                             }
@@ -277,7 +277,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             if let dict = response.result.value as? Dictionary<String, AnyObject>{
                 self.urlData = dict["photos"] as? [Dictionary<String, AnyObject>]
                 print("inside loadApi")
-                print("Dictionary Count:\(self.urlData?.count)")
+                print("Dictionary Count:\(String(describing: self.urlData?.count))")
                 //print("\(self.urlData!)")
                 self.collection.reloadData()
             }
@@ -360,7 +360,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
 }
 
-//
+//saving configure cell code for reference...
 //
 //func configureCell(cell: CuriosityCell, indexPath: NSIndexPath) {
 //
