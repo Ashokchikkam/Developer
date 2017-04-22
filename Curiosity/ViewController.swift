@@ -13,7 +13,7 @@ import Alamofire
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     
-    //Mark: Properties
+    // Mark: Properties
     @IBOutlet weak var bgImageView: UIImageView!
     @IBOutlet weak var collection: UICollectionView!
     
@@ -22,9 +22,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var controller: NSFetchedResultsController<Item>!
     
-    //var controller: NSFetchedResultsController<CuriosityDataModel>!
-    
-    
     private weak var timer: Timer?
     private var imageSet = [UIImage]()
     var bgImageCount = 0
@@ -32,29 +29,25 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //loadApi()
         attemptFetch()
         
         //below method needs to be called only once in the lifetime of an app. Its been used to load the API
         loadInitialData()
-        
-        print("inside viewdidload")
-        
+
         collection.delegate = self
         collection.dataSource = self
         
         //To load BackGround images from web.
         loadBgImages()
         
-        
         //Calling changeBGImage every 4 seconds gives the changing background.
         timer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true){_ in
             self.changeBGImage()
         }
         
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
+    //To track any changes done to the Core Data object.
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         DispatchQueue.main.async {
             print("saving the object to core data")
@@ -62,6 +55,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    // MARK: - Collection view data source
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -83,15 +78,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell!
     }
     
-    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //        if let objs = controller.fetchedObjects , objs.count > 0 {
-    //            let item = objs[indexPath.row]
-    //            print("inside did select item")
-    //            performSegue(withIdentifier: "ItemDetailsVC", sender: item)
-    //        }
-    //    }
-    //
+    // MARK: - Navigation
+
     
+    //Preparing the segue before navigating to the DetailVC.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -116,7 +106,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
-    
+    //Configuring cell.
     func configureCell(cell: CuriosityCell, indexPath: NSIndexPath) {
         
         print("cell number:\(indexPath.row) loaded")
@@ -174,10 +164,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 else{
                     print("imageUrl not found at the index value: \(indexPath.row)")
                 }
-                
-                
-                //let im = UIImage(cgImage: imref!)
-                
+
             }
             
             print("inside configuring cell")
@@ -190,9 +177,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    //MARK: Private Methods
+
     
-    
-    func attemptFetch() {
+    private func attemptFetch() {
         
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
         
@@ -221,7 +209,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     //Loading initial Data, Loading image_URL's into CoreData.
-    func loadInitialData() {
+    private func loadInitialData() {
         if(!UserDefaults.standard.bool(forKey: "firstlaunch1.0")){
             //Put any code here and it will be executed only once.
             print("inside loadInitialData")
@@ -271,7 +259,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     //To load the Api which consists of all the image_url's we need to display images.
-    func loadApi(){
+    private func loadApi(){
         print("before calling the request")
         Alamofire.request(BASE_URL).responseJSON{ response in
             if let dict = response.result.value as? Dictionary<String, AnyObject>{
@@ -285,7 +273,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     //Helper method to retrieve the imageURL from the Api loaded
-    func getImgUrlAtIndexPath(indexValue: Int) -> URL? {
+    private func getImgUrlAtIndexPath(indexValue: Int) -> URL? {
         
         if let temp = urlData?[indexValue]{
             if let img_src = temp["img_src"] as? String{
@@ -296,7 +284,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return nil
     }
     
-    func loadBgImages(){
+    private func loadBgImages(){
         
         //Add any background images to the bgSet.
         var bgSet = [String]()
@@ -317,7 +305,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     //To load the images from the web.
-    func loadImage(url: String){
+    private func loadImage(url: String){
         let url = URL(string: url)!
         
         DispatchQueue.global().async {
@@ -340,7 +328,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     //To change BackGround Images continously.
-    func changeBGImage(){
+    private func changeBGImage(){
         if imageSet.count > 1{
             let crossFading: CABasicAnimation = CABasicAnimation(keyPath: "contents")
             
@@ -359,70 +347,3 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
 }
-
-//saving configure cell code for reference...
-//
-//func configureCell(cell: CuriosityCell, indexPath: NSIndexPath) {
-//
-//    print("cell number:\(indexPath.row) loaded")
-//
-//    let obj = controller.object(at: indexPath as IndexPath)
-//    print(" camera value: \(obj.camera!)")
-//
-//    if !obj.thumbnailisLoaded{
-//        obj.thumbnailisLoaded = true
-//        DispatchQueue.global().async {
-//
-//
-//            let img_src = CGImageSourceCreateWithURL(URL(string: obj.imageURL!) as! CFURL, nil)
-//            let scale = UIScreen.main.scale
-//            print("scale value: \(scale)")
-//
-//            let w = cell.imageOutlet.bounds.size.width * CGFloat(scale)
-//            print("image outlet width: \(cell.imageOutlet.bounds.size.width)")
-//            print("width: \(w)")
-//
-//            // Create thumbnail options
-//            let options: [NSObject: AnyObject] = [
-//                kCGImageSourceShouldAllowFloat : true as AnyObject,
-//                kCGImageSourceCreateThumbnailWithTransform : true as AnyObject,
-//                kCGImageSourceCreateThumbnailFromImageAlways : true as AnyObject,
-//                kCGImageSourceThumbnailMaxPixelSize: w as AnyObject
-//            ]
-//            if let imref = CGImageSourceCreateThumbnailAtIndex(img_src!, 0, options as CFDictionary?){
-//                let im = UIImage(cgImage: imref)
-//
-//                let x: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
-//                obj.thumbnail = x
-//
-//                DispatchQueue.main.async {
-//
-//                    self.curiosity = Curiosity(image: im)
-//                    print("inside main .async ")
-//                    //cell.imageOutlet.image = UIImage(data: obj.thumbnail as! Data)
-//
-//
-//                }
-//                //ad.saveContext()
-//
-//                let img_size: NSData = NSData(data: UIImageJPEGRepresentation(im, 1)!)
-//
-//                print("size of the loaded image: \(Double(img_size.length))")
-//            }
-//            else{
-//                print("unable to load thumbnail image")
-//            }
-//            //let im = UIImage(cgImage: imref!)
-//
-//        }
-//
-//        print("inside configuring cell")
-//    }
-//    else if obj.thumbnail != nil{
-//        let tempImage = UIImage(data: obj.thumbnail as! Data)
-//
-//        self.curiosity = Curiosity(image: tempImage!)
-//        cell.imageOutlet.image = UIImage(data: obj.thumbnail as! Data)
-//    }
-//}
-//    

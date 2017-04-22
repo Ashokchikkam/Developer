@@ -12,6 +12,8 @@ import Alamofire
 
 class Curiosity {
     
+    
+    //MARK: Properties
     private var _image: UIImage?
     
     var image: UIImage?{
@@ -23,6 +25,7 @@ class Curiosity {
         }
     }
 
+    //MARK: Initialization
     init(image: UIImage) {
         _image = image
     }

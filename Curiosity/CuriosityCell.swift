@@ -12,7 +12,7 @@ import ImageIO
 
 class CuriosityCell: UICollectionViewCell {
     
-    
+    //MARK: Properties
     @IBOutlet weak var imageOutlet: UIImageView!
     
     var curiosity: Curiosity!

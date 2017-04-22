@@ -11,24 +11,21 @@ import ImageIO
 
 class DetailsVC: UIViewController, UIScrollViewDelegate {
     
+    //MARK: Properties
     var detailItem: Item?
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var cameraLabel: UILabel!
     @IBOutlet weak var doneOutlet: UIButton!
-
-    @IBOutlet weak var scrollView: UIScrollView!
-
-    var currentImageData: Data? { didSet { updateUI() } }
-    var scale: CGFloat = 0.9 { didSet { updateView() } }
-    var viewHeight: CGFloat?
-    var viewWidth: CGFloat?
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    var currentImageData: Data? { didSet { updateUI() } }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         updateUI()
         
         //let handler = #selector(self.changeScale(byReactingTo:))
@@ -61,11 +58,6 @@ class DetailsVC: UIViewController, UIScrollViewDelegate {
     
     
     private func updateUI(){
-        
-        //mainVerticalStackView.spacing = UIScreen.main.bounds.size.height - doneOutlet.bounds.size.height - cameraLabel.bounds.size.height - 16
-        
-        
-        print("inside updateUI")
         
         if let cameraName = detailItem?.camera{
             cameraLabel.text = "Camera: \(cameraName)"
@@ -110,54 +102,6 @@ class DetailsVC: UIViewController, UIScrollViewDelegate {
     }
     func toggleCameraLabel(){
         cameraLabel.isHidden = !cameraLabel.isHidden
-    }
-    
-    func changeScale(byReactingTo pinchRecognizer: UIPinchGestureRecognizer){
-        switch pinchRecognizer.state {
-        case .changed:
-            scale *= pinchRecognizer.scale
-            print("scale value: \(scale)")
-            pinchRecognizer.scale = 1
-        case .ended:
-            break
-            //            if self.view.bounds.size.height > (viewHeight! * 2){
-            //                self.view.bounds.size.height = viewHeight! * 2
-            //                self.view.bounds.size.width = viewWidth! * 2
-            //            }
-            //            else if self.view.bounds.size.height < (viewHeight! * 0.9){
-            //                self.view.bounds.size.height = viewHeight! * 0.9
-            //                self.view.bounds.size.width = viewWidth! * 0.9
-            //
-            //            }
-        //
-        default:
-            break
-        }
-    }
-    
-    func updateView(){
-        
-        self.scrollView.bounds.size.height += (scale * 10)
-        self.scrollView.bounds.size.width += (scale * 10)
-        
-        print("inside updateView")
-        
-        //        if self.view.bounds.size.height < (viewHeight! * 2.3) ||  self.view.bounds.size.height > (viewHeight! * 0.9){
-        //
-        //            if scale >= 1{
-        //                self.view.bounds.size.height += (scale * 10)
-        //                self.view.bounds.size.width += (scale * 10)
-        //
-        //            }
-        //            else{
-        //                self.view.bounds.size.height -= (scale * 10)
-        //                self.view.bounds.size.width -= (scale * 10)
-        //
-        //            }
-        //
-        //        }
-        
-        
     }
     
     func loadItemData() {
@@ -206,48 +150,14 @@ class DetailsVC: UIViewController, UIScrollViewDelegate {
         
     }
     
+    //MARK: Navigation
+    
+    //MARK: Actions
     @IBAction func doneBtnPressed(_ sender: Any) {
         
         print("done button pressed")
         dismiss(animated: true, completion: nil)
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
-//Saving LoadItemData for reference.
-
-//func loadItemData() {
-//
-//    indicator.startAnimating()
-//    if let cameraName = detailItem?.camera{
-//        cameraLabel.text = "Camera: \(cameraName)"
-//    }
-//
-//    if let tempData = detailItem?.thumbnail{
-//        let temp = UIImage(data: tempData as Data)
-//        imageOutlet.image = temp
-//    }
-//    DispatchQueue.global().async {
-//        do {
-//            let data = try Data(contentsOf: URL(string: (self.detailItem?.imageURL)!)!)
-//            DispatchQueue.global().sync {
-//                self.indicator.stopAnimating()
-//                self.imageOutlet.image = UIImage(data: data)
-//            }
-//        } catch  {
-//            print("unable to fetch the actual size image in Detail VC")
-//            //handle the error
-//        }
-//    }
-//
-//}
