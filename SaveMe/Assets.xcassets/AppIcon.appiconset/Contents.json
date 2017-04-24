@@ -1,0 +1,110 @@
+{
+  "images" : [
+    {
+      "size" : "20x20",
+      "idiom" : "iphone",
+      "filename" : "SaveMeeIcon@20_2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "20x20",
+      "idiom" : "iphone",
+      "filename" : "SaveMeeIcon@20_3x.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "SaveMeeIcon@29_2x-1.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "SaveMeeIcon@29_3x.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "SaveMeeIcon@40_2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "SaveMeeIcon@40_3x.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "SaveMeeIcon@40_3x-1.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "SaveMeeIcon@60_3x.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "20x20",
+      "idiom" : "ipad",
+      "filename" : "SaveMeeIcon@20_1x.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "20x20",
+      "idiom" : "ipad",
+      "filename" : "SaveMeeIcon@20_2x-1.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "SaveMeeIcon@29_1x.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "SaveMeeIcon@29_2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "SaveMeeIcon@40_1x.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "SaveMeeIcon@40_2x-1.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "SaveMeeIcon@76_1x.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "SaveMeeIcon@76_2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "83.5x83.5",
+      "idiom" : "ipad",
+      "filename" : "SaveMeeIcon@83.5_2x.png",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
