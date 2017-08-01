@@ -1,0 +1,6 @@
+framework module Pods_LearningFirebase {
+  umbrella header "Pods-LearningFirebase-umbrella.h"
+
+  export *
+  module * { export * }
+}
